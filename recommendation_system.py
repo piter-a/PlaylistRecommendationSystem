@@ -153,3 +153,37 @@ if (songs_or_artists == 'songs'):
     populatePlaylist(user_id = user_id, pl_id = playlist, songs = recs)
 
     print('Your playlist has been created and added to your spotify account. Enjoy! :)')
+
+elif (songs_or_artists == 'artists'):
+    timespan = input('Select the time range(short, medium, or long): \n')
+
+    if (timespan == 'short'):
+        top_artists = getTopArtists(number_of_artists = no_of_items, timespan = 'short_term')
+
+    elif (timespan == 'medium'):
+        top_artists = getTopArtists(number_of_artists = no_of_items, timespan = 'medium_term')
+
+    elif (timespan == 'long'):
+        top_artists = getTopArtists(number_of_artists = no_of_items, timespan = 'long_term')
+    
+    print('Here are your favourite artists in selected time range:\n')
+
+    for i in range(len(top_artists)):
+        print(f'{i + 1}.{top_artists[i][0]}\n')
+
+    artist_selection = input('Choose numbers of up to 5 artists based on which to create your new playlist. Use artist numbers separated by a space\n')
+    artist_selection = artist_selection.split()
+
+    seed_artists = [top_artists[int(artist) - 1] for artist in artist_selection]
+    artist_ids = getIds(seed = seed_artists)
+
+    playlist_name = input('What would you like to name your playlist?\n')
+    playlist = createPlaylist(user_id = user_id, playlist_name = playlist_name)
+
+    number_of_songs = input('How many songs your new playlist contain?(max 100)\n')
+
+    recs = getSongBasedRecs(song_ids = artist_ids, number_of_recs = int(number_of_songs))
+
+    populatePlaylist(user_id = user_id, pl_id = playlist, songs = recs)
+
+    print('Your playlist has been created and added to your spotify account. Enjoy! :)') 
