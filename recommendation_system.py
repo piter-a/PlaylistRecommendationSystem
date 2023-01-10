@@ -77,7 +77,7 @@ def getIds(seed):
 
     return seed_ids
 
-def getArtistBasedRecommendations(artist_ids, number_of_recs):
+def getArtistBasedRecs(artist_ids, number_of_recs):
 
     recs = sp.recommendations(seed_artists = artist_ids, limit = number_of_recs)
     rec_ids = []
@@ -182,8 +182,8 @@ elif (songs_or_artists == 'artists'):
 
     number_of_songs = input('How many songs your new playlist contain?(max 100)\n')
 
-    recs = getSongBasedRecs(song_ids = artist_ids, number_of_recs = int(number_of_songs))
+    recs = getArtistBasedRecs(artist_ids = artist_ids, number_of_recs = int(number_of_songs))
 
     populatePlaylist(user_id = user_id, pl_id = playlist, songs = recs)
 
-    print('Your playlist has been created and added to your spotify account. Enjoy! :)') 
+    print('Your playlist has been created and added to your spotify account. Enjoy! :)')
